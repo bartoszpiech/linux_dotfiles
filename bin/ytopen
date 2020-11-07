@@ -1,0 +1,8 @@
+#!/bin/bash
+url="$(xclip -sel c -o)"
+format=$(youtube-dl -F $url | tail -n +4 | dmenu | awk '{print $1}')
+if [ $format -eq -1 ]; then
+	mpv $url --ytdl-format=bestvideo+bestaudio/best
+else
+	mpv $url --ytdl-format=$format+bestaudio
+fi
